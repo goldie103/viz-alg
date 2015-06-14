@@ -1,2 +1,2 @@
 # viz-alg
-Simple webapp for visualizing for sort algorithms
+Simple webapp for visualizing various sort algorithms.
