@@ -56,3 +56,5 @@ docs/_build/
 # PyBuilder
 target/
 /viz-alg.wiki/
+/viz-alg.wiki2/
+/flask/
