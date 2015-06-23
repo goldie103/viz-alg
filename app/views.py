@@ -9,12 +9,12 @@ def index():
     """Home page of webapp with associated info."""
     form = InputForm()
     if form.validate_on_submit():
-        alg=SortAlg(form.alg.data)
+        alg=SortAlg(form.alg.data, size=form.source_size.data)
 
         # Build class attributes that will be displayed in page
         alg={"name": alg.name,
-             "list": alg.DEFAULT_LIST,
-             "sorted": alg.alg(alg.DEFAULT_LIST)}
+             "list": alg.source,
+             "sorted": alg.alg(alg.source)}
 
         # show progress messages
         flash("Sorting in progress")
