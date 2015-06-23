@@ -53,6 +53,9 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# emacs autosave files
+*.#*
+
 # PyBuilder
 target/
 /viz-alg.wiki/
