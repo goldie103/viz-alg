@@ -6,23 +6,18 @@ from .algs import SortAlg
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    """Home page of webapp with associated info."""
+    """
+    Info and input page.
+    """
     form = InputForm()
     if form.validate_on_submit():
-        alg=SortAlg(form.alg.data, size=form.source_size.data)
-
-        # Build class attributes that will be displayed in page
-        alg={"name": alg.name,
-             "list": alg.source,
-             "sorted": alg.alg(alg.source)}
+        alg = SortAlg(form.alg.data, size=form.source_size.data).props
 
         # show progress messages
-        flash("Sorting in progress")
-        flash("Sorted list: {}".format(alg["sorted"]))
+        flash("Sorting {}".format(alg["source"]))
+        flash("Sorted list: {}".format(alg["sorted_list"]))
 
-        return render_template("view.html",
-                               title=alg["name"],
-                               alg=alg)
+        # return render_template("view.html", title=alg["name"], alg=alg)
 
     return render_template("index.html",
                            title="Home",
@@ -30,7 +25,9 @@ def index():
 
 @app.route("/view")
 def view():
-    """Return view of visualisations"""
+    """
+    Return view of visualisations.
+    """
     alg = {"name": "Selection Sort"}
     return render_template("view.html",
                            title="Home",

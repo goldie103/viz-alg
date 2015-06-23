@@ -1,21 +1,22 @@
 
-
 class SortAlg:
     AVAILABLE_ALGS = [("sort_selection", "Selection Sort"),
                       ("sort_bogo", "Bogosort")]
-    DEFAULT_LIST = [27, 12, 22, 49, 29]
+    DEFAULT_LIST = [0, 42, 10, 11, 24]
 
     def __init__(self, alg, size=10):
-        algs = {i[0]: i[1] for i in self.AVAILABLE_ALGS}
-        self.name = algs[alg]
+        from random import sample
         self.alg = getattr(self, alg)
-        self.source = self.gen_list(size)
-
-    def gen_list(self, size, maxval=0, minval=50):
-        from random import randint
-        return [randint(maxval, minval) for i in range(size)]
+        # props for displaying in page
+        self.props = {"name": {i[0]: i[1] for i in self.AVAILABLE_ALGS}[alg],
+                      "source": sample(range(50), size)
+        }
+        self.props["sorted_list"] = self.alg(self.props["source"])
 
     def sort_selection(self, l):
+        """
+        Return a list sorted with a selection sort implementation.
+        """
         new = l
 
         for i in range(len(new)):
@@ -28,6 +29,9 @@ class SortAlg:
         return new
 
     def sort_bogo(self, l):
+        """
+        Return a list sorted with a bogosort implementation
+        """
         from random import shuffle
         new = l
 
