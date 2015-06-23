@@ -17,7 +17,7 @@ class SortAlg:
         """
         Return a list sorted with a selection sort implementation.
         """
-        new = l
+        new = [i for i in l]    # temporary fix to weird assignment carryover
 
         for i in range(len(new)):
             # loop through unsorted remainder of list
@@ -33,7 +33,7 @@ class SortAlg:
         Return a list sorted with a bogosort implementation
         """
         from random import shuffle
-        new = l
+        new = [i for i in l]    # temporary fix to weird assignment carryover
 
         while sorted(new) != new:
             # shuffle until sorted
