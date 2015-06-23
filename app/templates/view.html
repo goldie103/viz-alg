@@ -1,4 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Viewing {{ alg.name }}</h1>
+<h1>{{ alg.name }}</h1>
+<p>Sorting <pre>{{ alg.list }}</pre></p>
+<p>Sorted <pre>{{ alg.sorted }}</pre></p>
 {% endblock %}
