@@ -10,10 +10,16 @@ def index():
     form = InputForm()
     if form.validate_on_submit():
         alg=SortAlg(form.alg.data)
+
+        # Build class attributes that will be displayed in page
         alg={"name": alg.name,
              "list": alg.DEFAULT_LIST,
              "sorted": alg.alg(alg.DEFAULT_LIST)}
-        flash("Sorting {alg} with list:\nsorted".format(alg=str(form.alg.data)))
+
+        # show progress messages
+        flash("Sorting in progress")
+        flash("Sorted list: {}".format(alg["sorted"]))
+
         return render_template("view.html",
                                title=alg["name"],
                                alg=alg)

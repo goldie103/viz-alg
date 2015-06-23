@@ -16,7 +16,7 @@ lacinia purus, et dictum nunc justo sit amet elit.</p>
 <form action="" method="post" name="select">
   {{ form.hidden_tag() }}
   <p>Sort algorithm {{ form.alg }}</p>
-  <p>Ascending order {{ form.is_ascending }}</p>
+  <p>Descending order? {{ form.is_descending }}</p>
   <p><input type="submit" value="View" /></p>
 </form>
 {% endblock %}
