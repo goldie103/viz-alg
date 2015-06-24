@@ -12,6 +12,7 @@ varius et, dictum id, arcu. Mauris mollis tincidunt felis. Aliquam feugiat
 tellus ut neque. Nulla facilisis, risus a rhoncus fermentum, tellus tellus
 lacinia purus, et dictum nunc justo sit amet elit.</p>
 
+{% if form %}
 <h2>Get Started</h2>
 <form action="" method="post" name="select">
   {{ form.hidden_tag() }}
@@ -20,4 +21,17 @@ lacinia purus, et dictum nunc justo sit amet elit.</p>
   <p>Descending order? {{ form.is_descending }}</p>
   <p><input type="submit" value="View" /></p>
 </form>
+{% endif %}
+
+{% if alg %}
+<section>
+  <h2>{{ alg.name }} Visualization</h2>
+    <ul>
+      {% for step in alg.steps %}
+        <li>{{ step }}</li>
+      {% endfor %}
+   </ul>
+</section>
+{% endif %}
+
 {% endblock %}

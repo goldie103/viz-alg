@@ -13,12 +13,8 @@ def index():
     if form.validate_on_submit():
         alg = SortAlg(form.alg.data, size=form.source_size.data).props
 
-        # show progress messages
-        flash("Sorting {}".format(alg["source"]))
-        flash("Sorted list: {}".format(alg["steps"]))
+        return render_template("index.html", title=alg["name"],
+                               form=False, alg=alg)
 
-        # return render_template("view.html", title=alg["name"], alg=alg)
-
-    return render_template("index.html",
-                           title="Home",
-                           form=form)
+    return render_template("index.html", title="Home",
+                           form=form, alg=False)
