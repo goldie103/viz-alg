@@ -1,4 +1,8 @@
 #!flask/bin/python
+"""
+Basic testing framework, currently only testing a single default list.
+"""
+
 import unittest
 
 from config import DEFAULT_SOURCE, AVAILABLE_ALGS
@@ -10,6 +14,7 @@ class TestCase(unittest.TestCase):
     """ Basic testing framework """
 
     def setUp(self):
+        """ Basic setup for testing, run before testing. """
         app.config["TESTING"] = True
         app.config["WTF_CSRF_ENABLED"] = False
         self.app = app.test_client()

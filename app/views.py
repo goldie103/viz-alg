@@ -1,3 +1,6 @@
+"""
+Handles page display and routing for each page on the webapp.
+"""
 # library imports
 from flask import render_template
 # local code imports
@@ -9,11 +12,16 @@ from .algs import SortAlg
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    """ Info and input page. """
+    """
+    Main page of webapp.
+    Briefly describe purpose and usage, show input form, and display output.
+    """
+
     form = InputForm()
 
     if form.validate_on_submit():
         # check if source has been entered and pass to SortAlg if so
+        # TODO have source default handling be managed by SortAlg
         source = convert_source(form.source.data)
         if source is not None:
             alg = SortAlg(form.alg.data, source=source).props
@@ -32,8 +40,10 @@ def index():
 # Error Handling
 def display_error(errnum, error):
     """ Return an error template with message depending on error number. """
+
     ERR_MSG = {404: "Sorry, the page you're looking for couldn't be found.",
                500: "Sorry, something went wrong. Try again?"}
+
     return render_template("err.html", title=error,
                            error=error, message=ERR_MSG[errnum])
 

@@ -1,24 +1,32 @@
 #!flask/bin/python
-import getopt
+"""
+Start webapp server on port 5000.
+"""
+
 import sys
 from app import app
+
 
 def main(argv):
     """
     Attempt to read command line options to begin server.
+    Only option at present is -d to enable debug mode.
     """
+
+    from getopt import getopt, GetoptError
+
     try:
-        opts, args = getopt.getopt(argv, "d", ["debug"])
-    except getopt.GetoptError:
+        opts, args = getopt(argv, "d", ["debug"])
+    except GetoptError:
         print("usage: run.py [-d]")
         sys.exit()
 
     for opt, arg in opts:
         if opt == "-d":
-            use_debug = True
+            debug = True
 
     try:
-        app.run(debug=use_debug)
+        app.run(debug=debug)
     except NameError:
         app.run()
 
