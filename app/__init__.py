@@ -7,6 +7,8 @@ from flask import Flask
 app = Flask(__name__)
 app.config.from_object("config")
 
+from app import views           # required for app to function
+
 if not app.debug:
     # log errors to file when not running in debug mode
     import logging
