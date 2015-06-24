@@ -11,34 +11,26 @@ class SortAlg:
         self.props = {"name": {i[0]: i[1] for i in self.AVAILABLE_ALGS}[alg],
                       "source": sample(range(50), size)
         }
-        self.props["sorted_list"] = self.alg(self.props["source"])
+        self.props["sorted_list"] = list(self.props["source"])
+        self.sort_selection(self.props["sorted_list"])
 
     def sort_selection(self, l):
         """
         Return a list sorted with a selection sort implementation.
         """
-        new = [i for i in l]    # temporary fix to weird assignment carryover
-
-        for i in range(len(new)):
+        for i in range(len(l)):
             # loop through unsorted remainder of list
-            for j in range(i, len(new)):
-                if new[i] > new[j]:
+            for j in range(i, len(l)):
+                if l[i] > l[j]:
                     # swap first unsorted value with smaller unsorted value
-                    new[i], new[j] = new[j], new[i]
-
-        return new
+                    l[i], l[j] = l[j], l[i]
 
     def sort_bogo(self, l):
         """
         Return a list sorted with a bogosort implementation
         """
         from random import shuffle
-        new = [i for i in l]    # temporary fix to weird assignment carryover
+        while sorted(l) != l: shuffle(l)   # shuffle until sorted
 
-        while sorted(new) != new:
-            # shuffle until sorted
-            shuffle(new)
-
-        return new
 
 
