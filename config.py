@@ -6,4 +6,3 @@ TESTING = False
 DEFAULT_SOURCE = [0, 42, 10, 11, 25]
 AVAILABLE_ALGS = [("sort_selection", "Selection Sort"),
                   ("sort_bogo", "Bogosort")]
-
