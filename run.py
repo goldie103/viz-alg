@@ -18,7 +18,10 @@ def main(argv):
         if opt == "-d":
             use_debug = True
 
-    app.run(debug=use_debug)
+    try:
+        app.run(debug=use_debug)
+    except NameError:
+        app.run()
 
 if __name__ == "__main__":
     main(sys.argv[1:])
