@@ -15,20 +15,10 @@ def index():
 
         # show progress messages
         flash("Sorting {}".format(alg["source"]))
-        flash("Sorted list: {}".format(alg["sorted_list"]))
+        flash("Sorted list: {}".format(alg["steps"]))
 
         # return render_template("view.html", title=alg["name"], alg=alg)
 
     return render_template("index.html",
                            title="Home",
                            form=form)
-
-@app.route("/view")
-def view():
-    """
-    Return view of visualisations.
-    """
-    alg = {"name": "Selection Sort"}
-    return render_template("view.html",
-                           title="Home",
-                           alg=alg)
