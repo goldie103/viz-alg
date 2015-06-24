@@ -1,11 +1,25 @@
+# library imports
 from flask.ext.wtf import Form
-from wtforms import BooleanField, SelectField, IntegerField
-from wtforms.validators import NumberRange
-from .algs import SortAlg
+from wtforms import SelectField, StringField
+from wtforms.validators import ValidationError
+# local project imports
+from config import AVAILABLE_ALGS
+
+
+def convert_source(s):
+    """ Return a string split into a list of integers. """
+    return None if s.strip() == "" else [int(i) for i in s.strip().split()]
+
+
+def valid_source(form, field):
+    """ Check if field contains entry valid for a source list. """
+    if field.data is not None and field.data.strip() != "":
+        try:
+            convert_source(field.data)
+        except:
+            raise ValidationError("Not a valid custom list.")
+
 
 class InputForm(Form):
-    alg = SelectField("alg", choices=SortAlg.AVAILABLE_ALGS)
-    source_size = IntegerField("source_size",
-                               validators=[NumberRange(min=0, max=20)])
-    is_descending = BooleanField("is_descending", default=False)
-
+    alg = SelectField("alg", choices=AVAILABLE_ALGS)
+    source = StringField("source", [valid_source])

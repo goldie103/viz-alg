@@ -13,7 +13,6 @@ def main(argv):
         print("usage: run.py [-d]")
         sys.exit()
 
-    use_debug = False
     for opt, arg in opts:
         if opt == "-d":
             use_debug = True
