@@ -18,3 +18,19 @@ def index():
 
     return render_template("index.html", title="Home",
                            form=form, alg=False)
+
+
+
+def display_error(errnum, error):
+    ERR_MSG = {404: "Sorry, the page you're looking for couldn't be found.",
+               500: "Sorry, something went wrong. Try again?"}
+    return render_template("err.html", title=error,
+                           error=error, message=ERR_MSG[errnum])
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return display_error(404, error), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return display_error(500, error), 500
