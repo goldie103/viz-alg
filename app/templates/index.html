@@ -16,8 +16,14 @@ lacinia purus, et dictum nunc justo sit amet elit.</p>
 <h2>Get Started</h2>
 <form action="" method="post" name="select">
   {{ form.hidden_tag() }}
-  <p>Sort algorithm {{ form.alg }}</p>
-  <p>List to sort {{ form.source }}</p>
+  <p><label>Sort algorithm</label> {{ form.alg }}</p>
+  <p>
+    <label>List to sort</label>
+    {{ form.source }}
+    {% for error in form.source.errors %}
+      <div class="error">{{ error }}</span>
+    {% endfor %}
+  </p>
   <p><input type="submit" value="View" /></p>
 </form>
 {% endif %}
