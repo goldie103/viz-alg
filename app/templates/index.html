@@ -16,14 +16,11 @@ lacinia purus, et dictum nunc justo sit amet elit.</p>
 <h2>Get Started</h2>
 <form action="" method="post" name="select">
   {{ form.hidden_tag() }}
-  <p><label>Sort algorithm</label> {{ form.alg }}</p>
-  <p>
-    <label>List to sort</label>
-    {{ form.source }}
-    {% for error in form.source.errors %}
-      <div class="error">{{ error }}</span>
-    {% endfor %}
-  </p>
+  {% from "_helper.html" import render_field %}
+
+  {{ render_field(form.alg) }}
+  {{ render_field(form.source )}}
+
   <p><input type="submit" value="View" /></p>
 </form>
 {% endif %}
