@@ -6,8 +6,9 @@ class SortAlg:
         """ Setup sorting algorithm object with specified alg and source. """
         self.alg = getattr(self, alg)
         # props for displaying in page
-        self.props = {"name": {i[0]: i[1] for i in AVAILABLE_ALGS}[alg],
-                      "source": source}
+        self.props = {
+            "name": {i[0]: i[1] for i in AVAILABLE_ALGS}[alg],
+            "source": source if source is not None else DEFAULT_SOURCE}
         self.props["steps"] = [self.props["source"]]
         self.alg(self.props["steps"])
 
