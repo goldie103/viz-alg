@@ -8,14 +8,7 @@ from wtforms import SelectField, StringField
 from wtforms.validators import ValidationError
 # local project imports
 from config import AVAILABLE_ALGS, DEFAULT_SOURCE
-
-
-def convert_source(s):
-    """
-    Return a string split into a list of integers.
-    Returns None if an empty or whitespace string.
-    """
-    return None if s.strip() == "" else [int(i) for i in s.strip().split()]
+from .alg import parse_source
 
 
 def valid_source(form, field):
@@ -27,11 +20,10 @@ def valid_source(form, field):
 
     Empty, whitespace and None entries are considered valid.
     """
-    if field.data is not None and field.data.strip() != "":
-        try:
-            convert_source(field.data)
-        except:
-            raise ValidationError("Not a valid custom list.")
+    try:
+        parse_source(field.data)
+    except:
+        raise ValidationError("Not a valid custom list.")
 
 
 class InputForm(Form):

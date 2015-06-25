@@ -5,7 +5,7 @@ Handles page display and routing for each page on the webapp.
 from flask import render_template
 # local code imports
 from app import app
-from .forms import InputForm, convert_source
+from .forms import InputForm
 from .algs import SortAlg
 
 
@@ -20,13 +20,7 @@ def index():
     form = InputForm()
 
     if form.validate_on_submit():
-        # check if source has been entered and pass to SortAlg if so
-        # TODO have source default handling be managed by SortAlg
-        source = convert_source(form.source.data)
-        if source is not None:
-            alg = SortAlg(form.alg.data, source=source).props
-        else:
-            alg = SortAlg(form.alg.data).props
+        alg = SortAlg(form.alg.data, source=source).props
 
         # show output and hide input
         return render_template("index.html", title=alg["name"],
