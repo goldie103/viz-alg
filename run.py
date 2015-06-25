@@ -18,7 +18,7 @@ def main(argv):
     try:
         opts, args = getopt(argv, "d", ["debug"])
     except GetoptError:
-        print("usage: run.py [-d]")
+        print("usage: run.py [-d] [--debug]")
         sys.exit()
 
     for opt, arg in opts:
