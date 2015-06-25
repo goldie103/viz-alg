@@ -32,11 +32,9 @@ class TestCase(unittest.TestCase):
                                        [0, 10, 11, 25, 42]]}
         for alg, _ in AVAILABLE_ALGS:
             output = SortAlg(alg, DEFAULT_SOURCE).props["steps"]
+            assert output[-1] == sorted(DEFAULT_SOURCE)
             if alg != "sort_bogo":
                 assert output == expected[alg]
-            else:
-                # bogosort is random and thus only final result can be tested
-                assert output[-1] == sorted(DEFAULT_SOURCE)
 
 if __name__ == "__main__":
     try:
