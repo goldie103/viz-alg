@@ -1,0 +1,16 @@
+ul {
+  padding: 0;
+}
+
+#viz > ul {
+  list-style-type: none;
+  display: none;
+}
+
+.viz-item {
+  width: 20px;
+  background-color: royalblue;
+  display: inline-block;
+  margin: 5px;
+  list-style-type: none;
+}
