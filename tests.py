@@ -34,7 +34,7 @@ class TestCase(unittest.TestCase):
             output = SortAlg(alg, DEFAULT_SOURCE).props["steps"]
             assert output[-1] == sorted(DEFAULT_SOURCE)
             if alg != "sort_bogo":
-                assert output == expected[alg]
+                assert output == expected[alg], output
 
 if __name__ == "__main__":
     try:
