@@ -8,7 +8,7 @@ from wtforms import SelectField, StringField
 from wtforms.validators import ValidationError
 # local project imports
 from config import AVAILABLE_ALGS, DEFAULT_SOURCE
-from .alg import parse_source
+from .algs import parse_source
 
 
 def valid_source(form, field):
