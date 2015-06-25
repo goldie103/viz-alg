@@ -1,9 +1,14 @@
 #!flask/bin/python
 """
-Basic testing framework, currently only testing a single default list.
+Basic testing framework with coverage reports to determine what lines of code
+are being executed during testing.
 """
 
 import unittest
+# coverage testing at top of file to have coverage logging begin immediately
+from coverage import coverage
+cov = coverage(branch=True, omit=["flask/*", "tests.py"])
+cov.start()
 
 from config import DEFAULT_SOURCE, AVAILABLE_ALGS
 from app import app
@@ -34,4 +39,16 @@ class TestCase(unittest.TestCase):
                 assert output[-1] == sorted(DEFAULT_SOURCE)
 
 if __name__ == "__main__":
-    unittest.main()
+    try:
+        unittest.main()
+    except:
+        pass
+
+    # observe what lines of code are executed in testing and which are not
+    cov.stop()
+    cov.save()
+    print("\n\nCoverage Report:\n")
+    cov.report()
+    print("HTML version: {}".format("tmp/coverage/index.html"))
+    cov.html_report(directory="tmp/coverage")
+    cov.erase()
