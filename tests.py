@@ -26,10 +26,10 @@ class TestCase(unittest.TestCase):
 
     def test_sorting(self):
         """ Check if each algorithm functions correctly """
-        expected = {"sort_selection": [[0, 42, 10, 11, 25],
-                                       [0, 10, 42, 11, 25],
-                                       [0, 10, 11, 42, 25],
-                                       [0, 10, 11, 25, 42]]}
+        expected = {"sort_selection": [[42, 0, 106, 10, 184],
+                                       [0, 42, 106, 10, 184],
+                                       [0, 10, 106, 42, 184],
+                                       [0, 10, 42, 106, 184]]}
         for alg, _ in AVAILABLE_ALGS:
             output = SortAlg(alg, DEFAULT_SOURCE).props["steps"]
             assert output[-1] == sorted(DEFAULT_SOURCE)

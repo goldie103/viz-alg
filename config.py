@@ -3,6 +3,6 @@ SECRET_KEY = "2015SDDProj"
 
 TESTING = False
 
-DEFAULT_SOURCE = [0, 42, 10, 106, 184]
+DEFAULT_SOURCE = [42, 0, 106, 10, 184]
 AVAILABLE_ALGS = [("sort_selection", "Selection Sort"),
                   ("sort_bogo", "Bogosort")]
