@@ -49,18 +49,29 @@ class SortAlg:
         self.props["steps"] = [self.props["source"]]
         self.alg(self.props["steps"])
 
+    def selection_step(self, l, i):
+        """Return list after one step of selection sort."""
+        l = list(l)
+        cur_min = min(enumerate(l[i:]), key=lambda p: p[1])[0]
+        if l[i] != l[cur_min + i]:
+            l[i], l[cur_min + i] = l[cur_min + i], l[i]
+        return l
+
     def sort_selection(self, steps):
-        """ Build list with state of list after each stage of sort. """
+        """Build list with state of list after each stage of sort."""
         for i in range(len(steps[-1])):
-            cur_min = min(enumerate(steps[-1][i:]), key=lambda p: p[1])[0]
-            if steps[-1][i] != steps[-1][cur_min + i]:
-                steps.append(list(steps[-1]))
-                steps[-1][i], steps[-1][cur_min + i] \
-                    = steps[-1][cur_min + i], steps[-1][i]
+            step = self.selection_step(steps[-1], i)
+            if step != steps[-1]:
+                steps.append(step)
+
+    def bogo_step(self, l):
+        """Return list after one step of bogosort."""
+        from random import shuffle
+        l = list(l)
+        shuffle(l)
+        return l
 
     def sort_bogo(self, steps):
         """ Build list containing state of list after each stage of sort. """
-        from random import shuffle
         while sorted(steps[-1]) != steps[-1]:
-            steps.append(list(steps[-1]))
-            shuffle(steps[-1])   # shuffle until sorted
+            steps.append(self.bogo_step(steps[-1]))
