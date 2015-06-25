@@ -29,7 +29,7 @@ def remap(l, min_val=0, max_val=200):
 
 
 class SortAlg:
-    def __init__(self, alg, source=DEFAULT_SOURCE):
+    def __init__(self, alg_name, source=DEFAULT_SOURCE):
         """
         Setup sorting algorithm object with specified alg and source. Alg must
         be a string containing the name of a sort function (e.g.
@@ -37,38 +37,46 @@ class SortAlg:
         source from config is used, a list of integers, or a
         whitespace-separated string of integers.
         """
-        self.alg = getattr(self, alg)
+        self.alg = getattr(self, alg_name)
         # props for displaying in page
         self.props = {
-            "name": {i[0]: i[1] for i in AVAILABLE_ALGS}[alg],
+            "name": {i[0]: i[1] for i in AVAILABLE_ALGS}[alg_name],
             "source": parse_source(source)
         }
         self.props["steps"] = [self.props["source"]]
-        self.alg(self.props["steps"])
 
-    def selection_step(self, l, i):
-        """Return list after one step of selection sort."""
-        l = list(l)
-        cur_min = min(enumerate(l[i:]), key=lambda p: p[1])[0]
-        if l[i] != l[cur_min + i]:
-            l[i], l[cur_min + i] = l[cur_min + i], l[i]
-        return l
+    def next_step(self):
+        """Apply the next step of the sort."""
+        self.alg(1)
 
-    def selection(self, steps):
+    def selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
-        for i in range(len(steps[-1])):
-            step = self.selection_step(steps[-1], i)
-            if step != steps[-1]:
-                steps.append(step)
+        steps = self.props["steps"]
 
-    def bogo_step(self, l):
-        """Return list after one step of bogosort."""
-        from random import shuffle
-        l = list(l)
-        shuffle(l)
-        return l
+        def _add_step(l, i):
+            """Return list after one step of selection sort."""
+            l = list(l)
+            cur_min = min(enumerate(l[i:]), key=lambda p: p[1])[0]
+            if l[i] != l[cur_min + i]:
+                l[i], l[cur_min + i] = l[cur_min + i], l[i]
+                steps.append(l)
 
-    def bogo(self, steps):
+        for i in range(len(steps[-1]) if duration is None else duration):
+            _add_step(steps[-1], i)
+
+    def bogo(self, duration=None):
         """ Build list containing state of list after each stage of sort. """
-        while sorted(steps[-1]) != steps[-1]:
-            steps.append(self.bogo_step(steps[-1]))
+        from random import shuffle
+        steps = self.props["steps"]
+
+        def _add_step(l):
+            l = list(l)
+            shuffle(l)
+            steps.append(l)
+
+        try:
+            for _ in range(duration):
+                _add_step(steps[-1])
+        except TypeError:
+            while sorted(steps[-1]) != steps[-1]:
+                _add_step(steps[-1])
