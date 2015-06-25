@@ -1,7 +1,4 @@
-# from config import DEFAULT_SOURCE, AVAILABLE_ALGS
-DEFAULT_SOURCE = [42, 0, 106, 10, 184]
-AVAILABLE_ALGS = [("sort_selection", "Selection Sort"),
-                  ("sort_bogo", "Bogosort")]
+from config import DEFAULT_SOURCE, AVAILABLE_ALGS
 
 
 def parse_source(source):
@@ -57,7 +54,7 @@ class SortAlg:
             l[i], l[cur_min + i] = l[cur_min + i], l[i]
         return l
 
-    def sort_selection(self, steps):
+    def selection(self, steps):
         """Build list with state of list after each stage of sort."""
         for i in range(len(steps[-1])):
             step = self.selection_step(steps[-1], i)
@@ -71,7 +68,7 @@ class SortAlg:
         shuffle(l)
         return l
 
-    def sort_bogo(self, steps):
+    def bogo(self, steps):
         """ Build list containing state of list after each stage of sort. """
         while sorted(steps[-1]) != steps[-1]:
             steps.append(self.bogo_step(steps[-1]))
