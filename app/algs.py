@@ -38,12 +38,9 @@ class SortAlg:
         whitespace-separated string of integers.
         """
         self.alg = getattr(self, alg_name)
-        # props for displaying in page
-        self.props = {
-            "name": {i[0]: i[1] for i in AVAILABLE_ALGS}[alg_name],
-            "source": parse_source(source)
-        }
-        self.props["steps"] = [self.props["source"]]
+        self.name = {i[0]: i[1] for i in AVAILABLE_ALGS}[alg_name]
+        self.source = parse_source(source)
+        self.steps = [self.source]
 
     def next_step(self):
         """Apply the next step of the sort."""
@@ -51,7 +48,6 @@ class SortAlg:
 
     def selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
-        steps = self.props["steps"]
 
         def _add_step(l, i):
             """Return list after one step of selection sort."""
@@ -59,24 +55,23 @@ class SortAlg:
             cur_min = min(enumerate(l[i:]), key=lambda p: p[1])[0]
             if l[i] != l[cur_min + i]:
                 l[i], l[cur_min + i] = l[cur_min + i], l[i]
-                steps.append(l)
+                self.steps.append(l)
 
-        for i in range(len(steps[-1]) if duration is None else duration):
-            _add_step(steps[-1], i)
+        for i in range(len(self.steps[-1]) if duration is None else duration):
+            _add_step(self.steps[-1], i)
 
     def bogo(self, duration=None):
         """ Build list containing state of list after each stage of sort. """
         from random import shuffle
-        steps = self.props["steps"]
 
         def _add_step(l):
             l = list(l)
             shuffle(l)
-            steps.append(l)
+            self.steps.append(l)
 
         try:
             for _ in range(duration):
-                _add_step(steps[-1])
+                _add_step(self.steps[-1])
         except TypeError:
-            while sorted(steps[-1]) != steps[-1]:
-                _add_step(steps[-1])
+            while sorted(self.steps[-1]) != self.steps[-1]:
+                _add_step(self.steps[-1])

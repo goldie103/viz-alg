@@ -20,10 +20,10 @@ def index():
     form = InputForm()
 
     if form.validate_on_submit():
-        alg = SortAlg(form.alg.data, source=form.source.data).props
+        alg = SortAlg(form.alg.data, source=form.source.data)
 
         # show output and hide input
-        return render_template("index.html", title=alg["name"],
+        return render_template("index.html", title=alg.name,
                                form=False, alg=alg)
 
     # show input and hide output
