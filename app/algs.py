@@ -42,10 +42,6 @@ class SortAlg:
         self.source = parse_source(source)
         self.steps = [self.source]
 
-    def next_step(self):
-        """Apply the next step of the sort."""
-        self.alg(1)
-
     def selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
 
