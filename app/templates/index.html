@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
+{% block head %}
   <script async src="../static/step.js"></script>
+{% endblock %}
+
+{% block content %}
   <section>
     <h2>Algorithm visualisation</h2>
     <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
@@ -41,8 +44,11 @@
         {% endfor %}
       </div>
       <ul>
-        <li id="prev-step"><a onclick="step(-1)" href="#">Prev</a>
-        <li><span id="current-step-no">1</span>/<span id="total-steps">{{ alg.steps|length }}</span></li>
+        <li id="prev-step" class="hidden"><a onclick="step(-1)" href="#">Prev</a>
+         <li>
+           <span id="current-step-no">1</span>/
+           <span id="total-steps">{{ alg.steps|length }}</span>
+         </li>
         <li id="next-step"><a onclick="step(1)" href="#">Next</a>
       </ul>
     </section>
