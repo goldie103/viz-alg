@@ -42,6 +42,16 @@ class SortAlg:
         self.source = parse_source(source)
         self.steps = [self.source]
 
+    def get_step(self, num):
+        """Return the specified step of the sort process as a list"""
+        try:
+            if num < 0:
+                return "Number too small."
+            return self.steps[num]
+        except IndexError:
+            self.alg(len(self.source) + num - 1)
+            return self.steps[num]
+
     def selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
 
