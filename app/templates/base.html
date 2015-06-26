@@ -1,27 +1,35 @@
-<title>{{ title }} Viz-alg</title>
-<link rel="stylesheet" href="../static/main.css" />
+<head>
+  <title>{{ title }} Viz-alg</title>
+  <link rel="stylesheet" href="../static/main.css" />
+  {% block head %}{% endblock %}
+</head>
 
-<header>
-  <nav>
-    <a href="/index">Home</a>
-  </nav>
-</header>
+<body>
+  <header>
+    <nav>
+      <a href="/index">Home</a>
+    </nav>
+  </header>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <aside>
-      <ul>
-        {% for message in messages %}
-          <li>{{ message }}
-        {% endfor %}
-      </ul>
-    </aside>
-  {% endif %}
-{% endwith %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <aside>
+        <ul>
+          {% for message in messages %}
+            <li>{{ message }}
+          {% endfor %}
+        </ul>
+      </aside>
+    {% endif %}
+  {% endwith %}
 
-{% block content %}{% endblock %}
+  <section>
+    <h1>{{ title }}</h1>
+    {% block content %}{% endblock %}
+  </section>
 
-<footer>
-  Made by Kelly Stewart for a SDD Major Project.
-  Licensed under GNU 2.0.
-</footer>
+  <footer>
+    Made by Kelly Stewart for a SDD Major Project.
+    Licensed under GNU GPL 2.0.
+  </footer>
+</body>
