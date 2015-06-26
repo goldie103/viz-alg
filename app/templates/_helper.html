@@ -12,3 +12,11 @@
   {% endif %}
 </p>
 {% endmacro %}
+
+{% macro render_alg(step, is_shown=False) %}
+  <ul class="viz-step {{ 'show' if is_shown else 'hidden' }}">
+  {% for item in step %}
+    <li style="height: {{ item }}">{{ item }}
+  {% endfor %}
+  </ul>
+{% endmacro %}
