@@ -1,43 +1,50 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Algorithm visualisation</h1>
-  <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam vel
-    tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean in sem ac
-    leo mollis blandit. Donec neque quam, dignissim in, mollis nec, sagittis eu,
-    wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus at dui in ligula
-    mollis ultricies. Integer placerat tristique nisl. Praesent augue. Fusce
-    commodo. Vestibulum convallis, lorem a tempus semper, dui dui euismod elit,
-    vitae placerat urna tortor vitae lacus. Nullam libero mauris, consequat quis,
-    varius et, dictum id, arcu. Mauris mollis tincidunt felis. Aliquam feugiat
-    tellus ut neque. Nulla facilisis, risus a rhoncus fermentum, tellus tellus
-    lacinia purus, et dictum nunc justo sit amet elit.
-
+  <script async src="../static/step.js"></script>
+  <section>
+    <h2>Algorithm visualisation</h2>
+    <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
+      vel tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean
+      in sem ac leo mollis blandit. Donec neque quam, dignissim in, mollis nec,
+      sagittis eu, wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus
+      at dui in ligula mollis ultricies. Integer placerat tristique nisl.
+      Praesent augue. Fusce commodo. Vestibulum convallis, lorem a tempus
+      semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.
+      Nullam libero mauris, consequat quis, varius et, dictum id, arcu. Mauris
+      mollis tincidunt felis. Aliquam feugiat tellus ut neque. Nulla facilisis,
+      risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc
+      justo sit amet elit.
+  </section>
   {% if form %}
-    <h2>Get Started</h2>
-    <form action="" method="post" name="select">
-      {{ form.hidden_tag() }}
-      {% from "_helper.html" import render_field %}
+    {% from "_helper.html" import render_field %}
+    <section>
+      <h2>Get Started</h2>
+      <form action="" method="post" name="select">
+        {{ form.hidden_tag() }}
 
-      {{ render_field(form.alg) }}
-      {{ render_field(form.source )}}
+        {{ render_field(form.alg) }}
+        {{ render_field(form.source )}}
 
-      <p><input type="submit" value="View" />
-    </form>
+        <p><input type="submit" value="View" />
+      </form>
+    </section>
   {% endif %}
 
   {% if alg %}
+    {% from "_helper.html" import render_alg %}
     <section id="viz">
       <h2>{{ alg.name }} Visualization</h2>
-      <ul>
-        {% for step in alg.steps %}
-          <li><ul>
-            {% for item in step %}
-              <li class="viz-item" style="height: {{ item }}">{{ item }}
-            {% endfor %}
-          </ul></li>
+      <div id="viz-steps">
+        {{ render_alg(alg.steps[0], is_shown=True) }}
+        {% for step in alg.steps[1:] %}
+          {{ render_alg(step) }}
         {% endfor %}
+      </div>
+      <ul>
+        <li id="prev-step"><a onclick="step(-1)" href="#">Prev</a>
+        <li><span id="current-step-no">1</span>/<span id="total-steps">{{ alg.steps|length }}</span></li>
+        <li id="next-step"><a onclick="step(1)" href="#">Next</a>
       </ul>
-      <input type="button" value="Next" onclick="changeCurrentStep()"/>
     </section>
   {% endif %}
 
