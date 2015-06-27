@@ -1,0 +1,170 @@
+@import 'reset';
+
+/* Coolors Exported Palette - coolors.co/433a3f-3d5a6c-72a98f-8de969-cbef43 */
+$color0: #fff;
+$color1: #433a3f;
+$color2: #086375;
+$color3: #1dd3b0;
+$color4: #b2ff9e;
+$color5: #cbef43;
+
+/* Fonts */
+$font-header: "Fantasque Sans Mono", FantasqueSansMono, sans-serif;
+$font-body: "Comic Neue", sans-serif;
+
+/* Body */
+html, body {
+  font-family: $font-body;
+  color: $color1;
+}
+
+#content {
+  display: flex;
+  margin: 10px;
+}
+
+section {margin: 15px;}
+
+p {
+  margin-top: 1em;
+  width: 90%;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $color2;
+  font-family: $font-header;
+}
+
+h2 {font-size: 1.5em;}
+
+a {color: $color5;}
+a:hover {color: $color3;}
+
+.shown { display: block; }
+.hidden { display: none; }
+
+/* Form */
+form {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 0;
+  background-color: $color1;
+  color: $color4;
+  
+  .hint {
+    display: block;
+    padding: 2px 7px;
+    margin: 2px;
+    background-color: $color1;
+    color: $color4;
+    font: 16px $font-header;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  input, select {
+    margin-top: 5px;
+    padding: 4px 5px;
+    width: 100%;
+    font: 0.7em $font-header;
+  }
+  
+  > input {
+    border: none;
+    border-bottom: 1px solid $color3;
+    margin: 15px auto;
+    padding: 5px;
+    cursor: pointer;
+    font: 1em $font-header;
+    color: $color3;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  > input:hover {
+    border-bottom-color: $color5;
+    background-color: rgba(0,0,0,0.75);
+    color: $color5;
+  }
+
+  label {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  legend, h2 {color: $color3;}
+
+  ul {
+    display: inline-block;
+    padding: 5px;
+    border-bottom: 1px solid $color3;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .descript {
+    padding: 2px 5px;
+    width: 140px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 0;
+    font-size: 0.8em;
+    background-color: $color1;
+    color: white;
+    /* TODO get this to respond to changes in size of form.
+       Works if form is sized absolutely, but not otherwise. */
+    position: absolute;
+    right: 290px;             
+  }
+
+  .error {
+    margin-top: 4px;
+    order: 99;
+    font: 0.7em $font-header;
+    color: $color5;
+  }
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid $color3;
+    background-color: rgba(0,0,0,0.5);
+  }
+}
+
+nav#step {
+  margin-left: 20px;
+}
+
+.viz-step {
+  list-style-type: none;
+
+  li {
+    font-size: 8px;
+    width: 20px;
+    text-align: center;
+    background-color: royalblue;
+    display: inline-block;
+    margin: 5px;
+    list-style-type: none;
+  }
+}
+
+header {
+  background-color: $color1;
+  padding: 10px;
+  margin-top: 20px;
+
+  a {
+    font-size: 24px;
+    font-family: $font-header;
+    padding: 5px;
+    color: $color5;
+    text-decoration: none;
+  }
+  a:before { content: '[ '; }
+  a:after { content: ' ]'; }
+  a:hover { color: $color3; }
+}
+
