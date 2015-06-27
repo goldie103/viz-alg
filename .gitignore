@@ -69,6 +69,7 @@ target/
 /venv/
 
 # generated and compiled files
-app/static/*.css*
+app/static/*.css
+app/static/*.css.map
 app/static/css/.sass-cache
 /tmp/
