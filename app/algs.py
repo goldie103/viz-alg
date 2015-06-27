@@ -28,24 +28,26 @@ def format_alg_name(alg):
     return alg.capitalize() + " Sort" if alg not in UNSPACED_NAMES else "sort"
 
 
-def parse_source(source):
+def parse_source(source, default=None):
     """Return source as a list of sortable integers.
 
     Arguments:
         source (str): A whitespace-separated list of numbers.
+        default (List[int]): A source to default to. If omitted, use
+            DEFAULT_SOURCE.
 
     Returns:
         List[int]: A sortable list of integers.
         If provided source was empty or none, then return the default source.
     """
+    if default is None:
+        default = DEFAULT_SOURCE
+
     try:
-        if source.strip() == "":
-            return DEFAULT_SOURCE
-        else:
-            # convert to a list of integers
-            return list(map(int, source.strip().split()))
+        source = source.strip().split()
+        return default if len(source) == 0 else list(map(int, source))
     except AttributeError:
-        return DEFAULT_SOURCE
+        return default
 
 
 def remap(l, min_val=0, max_val=200):
@@ -73,19 +75,6 @@ def remap(l, min_val=0, max_val=200):
     return l
 
 
-def parse_source(source, default=None):
-    """Turn source to a list of integers. Use default if undefined."""
-
-    if default is None:
-        default = DEFAULT_SOURCE
-
-    try:
-        source = source.strip().split()
-        return default if len(source) == 0 else list(map(int, source))
-    except AttributeError:
-        return default
-
-
 class SortAlg:
     """Main class for sort algorithms and implementation.
 
@@ -107,7 +96,7 @@ class SortAlg:
     def __init__(self, alg_name, source=DEFAULT_SOURCE):
         self.alg = getattr(self, alg_name)
         self.name = format_alg_name(alg_name)
-        self.parse_source()
+        self.source = parse_source(source)
         self.steps = [self.source]
 
     def get_step(self, num):
