@@ -1,6 +1,5 @@
-"""
-Handles page display and routing for each page on the webapp.
-"""
+"""Handle page display and routing."""
+
 from flask import render_template
 
 from app import app
@@ -11,9 +10,10 @@ from .algs import SortAlg
 @app.route("/", methods=["GET", "POST"])
 @app.route("/index", methods=["GET", "POST"])
 def index():
-    """
-    Main page of webapp.
-    Briefly describe purpose and usage, show input form, and display output.
+    """Handle display of main page of webapp.
+
+    Returns:
+        str: HTML of index.html with either a chosen algorithm or a form.
     """
 
     form = InputForm()
@@ -28,7 +28,15 @@ def index():
 
 # Error Handling
 def display_error(errnum, error):
-    """ Return an error template with message depending on error number. """
+    """Return an error template with friendly message depending on error number.
+    Args:
+        errnum (int): Error number to render.
+        error (str): Specific error message.
+
+    Returns:
+        str: Rendered error page with messages passed in.
+
+    """
 
     ERR_MSG = {404: "Sorry, the page you're looking for couldn't be found.",
                500: "Sorry, something went wrong. Try again?",

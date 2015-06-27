@@ -1,7 +1,10 @@
 #!flask/bin/python
-"""
-Basic testing framework with coverage reports to determine what lines of code
-are being executed during testing.
+"""Basic testing framework with coverage reports.
+
+Run simple unit tests on existing code and optionally generate a coverage
+report detailing what hasn't been tested.
+
+-q, --quick     Run without coverage reports.
 """
 
 import unittest
@@ -14,16 +17,22 @@ from app.algs import SortAlg
 
 
 class TestCase(unittest.TestCase):
-    """ Basic testing framework """
+    """Basic testing framework."""
 
     def setUp(self):
-        """ Basic setup for testing, run before testing. """
+        """Basic setup for testing, run before testing."""
+
         app.config["TESTING"] = True
         app.config["WTF_CSRF_ENABLED"] = False
         self.app = app.test_client()
 
     def test_sorting(self):
-        """ Check if each algorithm functions correctly """
+        """Check if each algorithm functions correctly
+
+        Checks that the end result is as expected and, if possible, that it
+        takes appropriate steps to get there.
+        """
+
         expected = {"selection": [[42, 0, 106, 10, 184],
                                   [0, 42, 106, 10, 184],
                                   [0, 10, 106, 42, 184],
