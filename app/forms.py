@@ -1,5 +1,7 @@
-"""
-Form definition and validation for each part of webapp.
+"""Form definition and validation.
+
+Exports:
+    InputForm: Algorithm request form.
 """
 
 # library imports
@@ -12,13 +14,17 @@ from .algs import parse_source
 
 
 def valid_source(form, field):
-    """
-    Check if field contains entry valid for a source list.
+    """Validator for source input field.
 
-    Validity of entry is determined essentially by whether any exceptions are
-    thrown when attempting to process the output into a list.
+    Attempt to parse the source, and if it fails assume the list isn't valid.
 
-    Empty, whitespace and None entries are considered valid.
+    Args:
+        form: Automatically-passed in containing form.
+        field (Field): A completed field to validate.
+
+    Raises:
+        ValidationError: If parsing fails.
+
     """
     try:
         parse_source(field.data)
@@ -27,7 +33,12 @@ def valid_source(form, field):
 
 
 class InputForm(Form):
-    """ Main input form for entering desired algorithm and settings. """
+    """Main input form for entering desired algorithm.
+
+    Attributes:
+        alg (SelectField): Chosen algorithm to display.
+        source (StringField): List of numbers to sort.
+    """
 
     default_formatted = ' '.join([str(i) for i in DEFAULT_SOURCE])
 

@@ -1,6 +1,4 @@
-"""
-Initial setup for app.
-"""
+"""Runs app and optionally logs output to file."""
 
 from flask import Flask
 
