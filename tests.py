@@ -7,25 +7,8 @@ are being executed during testing.
 import unittest
 import sys
 from getopt import getopt, GetoptError
+from os.path import join as pathjoin
 
-use_coverage = True
-
-try:
-    opts, args = getopt(sys.argv[1:], "q", ["quick"])
-except GetoptError:
-    print("usage: tests.py [-q] [--quick]")
-    sys.exit()
-
-for opt, arg in opts:
-    if opt == "-q":
-        use_coverage = False
-
-if use_coverage:
-    from coverage import coverage
-    cov = coverage(branch=True, omit=["flask/*", "tests.py"])
-    cov.start()
-
-from config import DEFAULT_SOURCE, AVAILABLE_ALGS
 from app import app
 from app.algs import SortAlg
 
@@ -45,27 +28,53 @@ class TestCase(unittest.TestCase):
                                   [0, 42, 106, 10, 184],
                                   [0, 10, 106, 42, 184],
                                   [0, 10, 42, 106, 184]]}
-        for alg_name, _ in AVAILABLE_ALGS:
-            alg = SortAlg(alg_name, DEFAULT_SOURCE)
+        for alg_name, _ in app.config["AVAILABLE_ALGS"]:
+            alg = SortAlg(alg_name, app.config["DEFAULT_SOURCE"])
             alg.alg()
             output = alg.props["steps"]
-            assert output[-1] == sorted(DEFAULT_SOURCE), \
+            assert output[-1] == sorted(app.config["DEFAULT_SOURCE"]), \
                 "{} sort yeilded {}".format(alg_name, output[-1])
             if alg_name != "bogo":
                 assert output == expected[alg_name], output
 
-if __name__ == "__main__":
+
+def main(argv):
+    # Parse command line options
+    use_coverage = True
+
+    try:
+        opts, args = getopt(argv, "q", ["quick"])
+    except GetoptError:
+        print("usage: tests.py [-q] [--quick]")
+        sys.exit()
+
+    for opt, arg in opts:
+        if opt == "-q":
+            use_coverage = False
+
+    if use_coverage:
+        # Start coverage checking
+        from coverage import coverage
+        cov = coverage(branch=True, omit=app.config["COVERAGE_OMMITTED"])
+        cov.start()
+
+    # start testing
     try:
         unittest.main()
     except:
         pass
 
     if use_coverage:
-        # observe what lines of code are executed in testing and which are not
+        # Stop coverage checking and generate report
         cov.stop()
         cov.save()
         print("\n\nCoverage Report:\n")
         cov.report()
-        print("HTML version: {}".format("tmp/coverage/index.html"))
-        cov.html_report(directory="tmp/coverage")
+        print("HTML version: {}".format(pathjoin(app.config["COVERAGE_DIR"],
+                                                 "index.html")))
+        cov.html_report(directory=app.config["COVERAGE_DIR"])
         cov.erase()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

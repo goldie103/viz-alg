@@ -7,8 +7,7 @@ from flask.ext.wtf import Form
 from wtforms import SelectField, StringField
 from wtforms.validators import ValidationError
 # local project imports
-from config import AVAILABLE_ALGS, DEFAULT_SOURCE
-from .algs import parse_source
+from .algs import parse_source, DEFAULT_SOURCE, algs, format_alg_name
 
 
 def valid_source(form, field):
@@ -34,11 +33,11 @@ class InputForm(Form):
     alg = SelectField(
         label="Algorithm",
         description="A sorting algorithm you'd like to see visualized.",
-        choices=AVAILABLE_ALGS)
+        choices=[(i, format_alg_name(i)) for i in algs])
 
     source = StringField(
         label="List to sort",
-        description="A list to sort. If you don't enter anything the default"
-        " {} will be used.".format(default_formatted),
+        description=("A list to sort. If you don't enter anything the default"
+                     " {} will be used.".format(default_formatted)),
         default=default_formatted,
         validators=[valid_source])

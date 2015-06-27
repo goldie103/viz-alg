@@ -1,16 +1,10 @@
-from config import DEFAULT_SOURCE, AVAILABLE_ALGS
+DEFAULT_SOURCE = [42, 0, 106, 10, 184]
 
 
-def parse_source(source):
-    """Return source as a list of integers, using default if necessary."""
-    try:
-        if source.strip() == "":
-            return DEFAULT_SOURCE
-        else:
-            # convert to a list of integers
-            return list(map(int, source.strip().split()))
-    except AttributeError:
-        return DEFAULT_SOURCE
+def format_alg_name(alg):
+    """Return a name formatted as a capitalized string."""
+    UNSPACED_NAMES = ["bogo", "bogobogo", "quick"]
+    return i.capitalize() + " Sort" if i not in UNSPACED_NAMES else "sort"
 
 
 def remap(l, min_val=0, max_val=200):
@@ -28,8 +22,21 @@ def remap(l, min_val=0, max_val=200):
     return l
 
 
+def parse_source(source, default=None):
+    """Turn source to a list of integers. Use default if undefined."""
+
+    if default is None:
+        default = DEFAULT_SOURCE
+
+    try:
+        source = source.strip().split()
+        return default if len(source) == 0 else list(map(int, source))
+    except AttributeError:
+        return default
+
+
 class SortAlg:
-    def __init__(self, alg_name, source=DEFAULT_SOURCE):
+    def __init__(self, alg_name, source=None):
         """
         Setup sorting algorithm object with specified alg and source. Alg must
         be a string containing the name of a sort function (e.g.
@@ -38,8 +45,8 @@ class SortAlg:
         whitespace-separated string of integers.
         """
         self.alg = getattr(self, alg_name)
-        self.name = {i[0]: i[1] for i in AVAILABLE_ALGS}[alg_name]
-        self.source = parse_source(source)
+        self.name = format_alg_name(alg_name)
+        self.parse_source()
         self.steps = [self.source]
 
     def get_step(self, num):
@@ -52,7 +59,7 @@ class SortAlg:
             self.alg(len(self.source) + num - 1)
             return self.steps[num]
 
-    def selection(self, duration=None):
+    def sort_selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
         from itertools import islice
 
@@ -70,7 +77,7 @@ class SortAlg:
         for i in range(len(self.steps[-1]) if duration is None else duration):
             _add_step(self.steps[-1], i)
 
-    def bogo(self, duration=None):
+    def sort_bogo(self, duration=None):
         """ Build list containing state of list after each stage of sort. """
         from random import shuffle
 
@@ -85,3 +92,5 @@ class SortAlg:
         except TypeError:
             while sorted(self.steps[-1]) != self.steps[-1]:
                 _add_step(self.steps[-1])
+
+algs = [i for i in dir(SortAlg) if i.startswith("sort_")]
