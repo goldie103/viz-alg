@@ -7,13 +7,14 @@ report detailing what hasn't been tested.
 -q, --quick     Run without coverage reports.
 """
 
-import unittest
 import sys
-from getopt import getopt, GetoptError
 from os.path import join as pathjoin
 
+import unittest
+from getopt import getopt, GetoptError
+
 from app import app
-from app.algs import SortAlg
+from app.algs import SortAlg, algs, DEFAULT_SOURCE
 
 
 class TestCase(unittest.TestCase):
@@ -37,11 +38,12 @@ class TestCase(unittest.TestCase):
                                   [0, 42, 106, 10, 184],
                                   [0, 10, 106, 42, 184],
                                   [0, 10, 42, 106, 184]]}
-        for alg_name, _ in app.config["AVAILABLE_ALGS"]:
-            alg = SortAlg(alg_name, app.config["DEFAULT_SOURCE"])
+        for alg_name in algs:
+            alg = SortAlg(alg_name)
+            alg_name = alg_name[len("sort_"):]
             alg.alg()
-            output = alg.props["steps"]
-            assert output[-1] == sorted(app.config["DEFAULT_SOURCE"]), \
+            output = alg.steps
+            assert output[-1] == sorted(DEFAULT_SOURCE), \
                 "{} sort yeilded {}".format(alg_name, output[-1])
             if alg_name != "bogo":
                 assert output == expected[alg_name], output
