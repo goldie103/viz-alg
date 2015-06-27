@@ -3,6 +3,5 @@ SECRET_KEY = "2015SDDProj"
 
 TESTING = False
 
-DEFAULT_SOURCE = [42, 0, 106, 10, 184]
-AVAILABLE_ALGS = [("selection", "Selection Sort"),
-                  ("bogo", "Bogosort")]
+COVERAGE_OMMITTED = ["flask/*", "tests.py", "docs/*"]
+COVERAGE_DIR = "tmp/coverage/"
