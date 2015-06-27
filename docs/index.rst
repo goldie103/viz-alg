@@ -10,9 +10,13 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-   intro
-   tutorial
 
+   config
+   run
+   tests
+   app
+   modules
+      
 
 
 Indices and tables
