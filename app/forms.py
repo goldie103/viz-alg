@@ -49,6 +49,6 @@ class InputForm(Form):
     source = StringField(
         label="List to sort",
         description=("A list to sort. If you don't enter anything the default"
-                     " {} will be used.".format(default_formatted)),
+                     " will be used."),
         default=default_formatted,
         validators=[valid_source])
