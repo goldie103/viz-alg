@@ -5,56 +5,58 @@
 
 {% block content %}
   <section>
-        <h2>Algorithm visualisation</h2>
-        <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
-          vel tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean
-          in sem ac leo mollis blandit. Donec neque quam, dignissim in, mollis nec,
-          sagittis eu, wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus
-          at dui in ligula mollis ultricies. Integer placerat tristique nisl.
-          Praesent augue. Fusce commodo. Vestibulum convallis, lorem a tempus
-          semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.
-          Nullam libero mauris, consequat quis, varius et, dictum id, arcu. Mauris
-          mollis tincidunt felis. Aliquam feugiat tellus ut neque. Nulla facilisis,
-          risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc
-          justo sit amet elit.
-    </section>
+    <h2>Algorithm visualisation</h2>
+    <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
+      vel tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean
+      in sem ac leo mollis blandit. Donec neque quam, dignissim in, mollis nec,
+      sagittis eu, wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus
+      at dui in ligula mollis ultricies. Integer placerat tristique nisl.
+      Praesent augue. Fusce commodo. Vestibulum convallis, lorem a tempus
+      semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.
+      Nullam libero mauris, consequat quis, varius et, dictum id, arcu. Mauris
+      mollis tincidunt felis. Aliquam feugiat tellus ut neque. Nulla facilisis,
+      risus a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc
+      justo sit amet elit.
+  </section>
 
-    {% if form %}
-          {% from "_helper.html" import render_field %}
-          <section>
-            <h2>Get Started</h2>
-            <form action="" method="post" name="select">
-              {{ form.hidden_tag() }}
+  {% if form %}
+    {% from "_helper.html" import render_field %}
+    <section>
+      <form action="" method="post" name="select">
+        {{ form.hidden_tag() }}
 
-              {{ render_field(form.alg) }}
-              {{ render_field(form.source )}}
+        <fieldset>
+          <legend><h2>Get Started</h2></legend>
+          {{ render_field(form.alg) }}
+          {{ render_field(form.source )}}
+        </fieldset>
 
-              <p><input type="submit" value="View" />
+        <input type="submit" value="View" />
       </form>
     </section>
-      {% endif %}
+  {% endif %}
 
-{% if alg %}
-  {% from "_helper.html" import render_alg %}
-  <section id="viz">
-    <h2>{{ alg.name }} Visualization</h2>
-    <nav id="step">
-      <ul>
-        <li id="prev-step" class="hidden"><a onclick="step(-1)" href="#">Prev</a>
-          <li>
-            <span id="current-step-no">1</span> /
-            <span id="total-steps">{{ alg.steps|length }}</span>
-          </li>
-          <li id="next-step"><a onclick="step(1)" href="#">Next</a>
-      </ul>
-    </nav>
-    <div id="viz-steps">
-      {{ render_alg(alg.steps[0], is_shown=True) }}
-      {% for step in alg.steps[1:] %}
-        {{ render_alg(step) }}
-      {% endfor %}
-    </div>
-  </section>
-{% endif %}
+  {% if alg %}
+    {% from "_helper.html" import render_alg %}
+    <section id="viz">
+      <h2>{{ alg.name }} Visualization</h2>
+      <nav id="step">
+        <ul>
+          <li id="prev-step" class="hidden"><a onclick="step(-1)" href="#">Prev</a>
+            <li>
+              <span id="current-step-no">1</span> /
+              <span id="total-steps">{{ alg.steps|length }}</span>
+            </li>
+            <li id="next-step"><a onclick="step(1)" href="#">Next</a>
+        </ul>
+      </nav>
+      <div id="viz-steps">
+        {{ render_alg(alg.steps[0], is_shown=True) }}
+        {% for step in alg.steps[1:] %}
+          {{ render_alg(step) }}
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 
 {% endblock %}
