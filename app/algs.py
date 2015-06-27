@@ -17,15 +17,15 @@ def format_alg_name(alg):
         alg (str): A function name.
     Returns:
         str: A capitalized name suffixed with `sort`.
-        If the name is in `UNSPACED_NAMES` then don't add a space, e.g.
+        If the name is in `UNSPACED` then don't add a space, e.g.
         `Bogosort` rather than `Bogo Sort`.
     """
 
     if alg.startswith("sort_"):
         alg = alg[len("sort_"):]
 
-    UNSPACED_NAMES = ["bogo", "bogobogo", "quick"]
-    return alg.capitalize() + " Sort" if alg not in UNSPACED_NAMES else "sort"
+    UNSPACED = ["bogo", "bogobogo", "quick"]
+    return alg.capitalize() + (" Sort" if alg not in UNSPACED else "sort")
 
 
 def parse_source(source, default=None):
@@ -133,7 +133,7 @@ class SortAlg:
             # Generator expression to yeild (value, i). Use itertools.islice
             # to look at sublist without creating new list.
             genexp = ((n, i) for i, n in enumerate(islice(l, i, len(l))))
-            min_i = min(genexp)[0] + i  # minimum index adjusted for whole list
+            min_i = min(genexp)[1] + i  # adjusted minimum index
             if l[i] != l[min_i]:
                 l[i], l[min_i] = l[min_i], l[i]  # swap minimum & current items
                 self.steps.append(l)
