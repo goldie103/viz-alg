@@ -54,13 +54,17 @@ class SortAlg:
 
     def selection(self, duration=None):
         """Build list with state of list after each stage of sort."""
+        from itertools import islice
 
         def _add_step(l, i):
             """Return list after one step of selection sort."""
             l = list(l)
-            cur_min = min(enumerate(l[i:]), key=lambda p: p[1])[0]
-            if l[i] != l[cur_min + i]:
-                l[i], l[cur_min + i] = l[cur_min + i], l[i]
+            # generator expression to return (value, i)
+            # use itertools.islice to look at sublist without creating new list
+            genexp = ((n, i) for i, n in enumerate(islice(l, i, len(l))))
+            min_i = min(genexp)[0] + i
+            if l[i] != l[min_i]:
+                l[i], l[min_i] = l[min_i], l[i]
                 self.steps.append(l)
 
         for i in range(len(self.steps[-1]) if duration is None else duration):
