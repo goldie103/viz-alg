@@ -58,9 +58,17 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# wiki files
 /viz-alg.wiki/
 /viz-alg.wiki2/
-/flask/
 /wiki/
-/tmp/
+
+# virtual environment
+/flask/
 /venv/
+
+# generated and compiled files
+app/static/*.css*
+app/static/css/.sass-cache
+/tmp/
