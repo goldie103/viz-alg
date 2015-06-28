@@ -4,7 +4,34 @@ from flask import render_template
 
 from app import app
 from .forms import InputForm
-from .algs import SortAlg
+from .algs import SortAlg, DEFAULT_SOURCE
+
+
+def get_content(alg):
+    import re
+    from urllib.request import urlopen, URLError
+    SYMBOLS = {"&quot;": '"', "&gt;": ">", "&lt;": "<"}
+    URL = "https://en.wikipedia.org/w/api.php?{}".format(
+        '&'.join([
+            "format=xml",
+            "action=query",
+            "prop=revisions",
+            "titles={}",
+            "rvprop=content",
+            "rvsection=0",
+            "rvparse"
+        ]))
+    try:
+        response = urlopen(URL.format(alg.replace(" ", "_"))).read().decode()
+        html = ''.join([i[0] for i in re.findall(r'<p>(.*?)</p>', response)])
+    except URLError:
+        return None
+    except AttributeError:
+        return None
+
+    for i in SYMBOLS:
+        html = html.replace(i, SYMBOLS[i])
+    return html
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -23,7 +50,8 @@ def index():
         alg.alg()
         return render_template("index.html", title="Home", alg=alg)
 
-    return render_template("index.html", title="Home", form=form)
+    return render_template("index.html", title="Home",
+                           form=form, default_list=DEFAULT_SOURCE)
 
 
 # Error Handling

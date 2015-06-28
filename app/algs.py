@@ -25,7 +25,7 @@ def format_alg_name(alg):
         alg = alg[len("sort_"):]
 
     UNSPACED = ["bogo", "bogobogo", "quick"]
-    return alg.capitalize() + (" Sort" if alg not in UNSPACED else "sort")
+    return alg.capitalize() + (" " if alg not in UNSPACED else "") + "sort"
 
 
 def parse_source(source, default=None):
