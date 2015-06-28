@@ -14,10 +14,10 @@
 </p>
 {% endmacro %}
 
-{% macro render_alg(step, is_shown=False) %}
-  <ul class="viz-step {{ 'show' if is_shown else 'hidden' }}">
+{% macro render_alg(step, is_hidden=False) %}
+  <ul class="viz-step" style="{{ 'display: none;' if is_hidden }}">
   {% for item in step %}
-    <li style="height: {{ item }}">{{ item }}
+    <li style="height: {{ item }}"><span>{{ item }}</span></li>
   {% endfor %}
   </ul>
 {% endmacro %}

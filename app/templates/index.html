@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block head %}
-  <script async src="../static/step.js"></script>
+  <script async="async" src="static/step.js"></script>
 {% endblock %}
 
 {% block content %}
-  <section>
-    <h2>Algorithm visualisation</h2>
+  <section id="text">
+    <h2>What is it?</h2>
     <p>Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
       vel tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean
       in sem ac leo mollis blandit. Donec neque quam, dignissim in, mollis nec,
@@ -40,21 +40,23 @@
     {% from "_helper.html" import render_alg %}
     <section id="viz">
       <h2>{{ alg.name }} Visualization</h2>
-      <nav id="step">
-        <ul>
-          <li id="prev-step" class="hidden"><a onclick="step(-1)" href="#">Prev</a>
-            <li>
-              <span id="current-step-no">1</span> /
-              <span id="total-steps">{{ alg.steps|length }}</span>
-            </li>
-            <li id="next-step"><a onclick="step(1)" href="#">Next</a>
-        </ul>
-      </nav>
-      <div id="viz-steps">
-        {{ render_alg(alg.steps[0], is_shown=True) }}
-        {% for step in alg.steps[1:] %}
-          {{ render_alg(step) }}
-        {% endfor %}
+      <div>
+        <nav id="step">
+            <ul>
+              <li id="prev-step" style="visibility: hidden;"><a onclick="step(-1)" href="#"></a></li>
+                <li>
+                <span id="current-step-no">1</span> /
+                <span id="total-steps">{{ alg.steps|length }}</span>
+                </li>
+                <li id="next-step"><a onclick="step(1)" href="#"></a></li>
+            </ul>
+        </nav>
+        <div id="viz-steps">
+          {{ render_alg(alg.steps[0]) }}
+          {% for step in alg.steps[1:] %}
+            {{ render_alg(step, is_hidden=True) }}
+          {% endfor %}
+        </div>
       </div>
     </section>
   {% endif %}

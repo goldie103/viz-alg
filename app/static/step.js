@@ -13,26 +13,23 @@ function step(offset) {
     var prevElement = document.getElementById("prev-step");
 
     if (reqNum === totalSteps) {
-        nextElement.classList.add("hidden");
+        nextElement.style = "visibility: hidden;";
     } else {
-        nextElement.classList.remove("hidden");
+        nextElement.style = "";
     }
 
     if (reqNum === 1 ) {
-        prevElement.classList.add("hidden");
+        prevElement.style = "visibility: hidden;";
     } else {
-        prevElement.classList.remove("hidden");
+        prevElement.style = "";
     }
 
     var stepsElement = document.getElementById("viz-steps");
     var curStep = stepsElement.children[curNum - 1];
     var reqStep = stepsElement.children[reqNum - 1];
 
-    curStep.classList.remove("shown");
-    curStep.classList.add("hidden");
-
-    reqStep.classList.remove("hidden");
-    reqStep.classList.add("shown");
+    curStep.style = "display: none;";
+    reqStep.style = "";
 
     curElement.textContent = reqNum;
 }
