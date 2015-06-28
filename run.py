@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!venv/bin/python
 """Start a viz-alg webapp server on port 5000.
 
 usage: run.py [-d] [--debug]

@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!venv/bin/python
 """Basic testing framework with coverage reports.
 
 Run simple unit tests on existing code and optionally generate a coverage
