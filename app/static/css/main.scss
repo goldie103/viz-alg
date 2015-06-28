@@ -24,6 +24,7 @@ html, body {
 }
 
 section {margin: 15px;}
+section#text {flex-shrink: 2;}
 
 p {
   margin-top: 1em;
@@ -41,8 +42,7 @@ h2 {font-size: 1.5em;}
 a {color: $color5;}
 a:hover {color: $color3;}
 
-.shown { display: block; }
-.hidden { display: none; }
+.hidden {display: none;}
 
 /* Form */
 form {
@@ -133,24 +133,76 @@ form {
   }
 }
 
-nav#step {
-  margin-left: 20px;
-}
+/* Visualization */
+section#viz {
+  background-color: $color1;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 0 $color4;
+  
+  > div {
+    background-color: rgba(0,0,0,0.5);
+    border-bottom: 1em solid $color4;
+  }
 
-.viz-step {
-  list-style-type: none;
-
-  li {
-    font-size: 8px;
-    width: 20px;
-    text-align: center;
-    background-color: royalblue;
-    display: inline-block;
-    margin: 5px;
-    list-style-type: none;
+  h2 {
+    margin-bottom: 10px;
+    color: $color3;
   }
 }
 
+#viz-steps {
+  border-radius: 5px;
+
+  .viz-step {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0 10px;
+  }
+  
+  li {
+    display: inline-block;
+    position: relative;
+    margin: 0 2px;
+    min-width: 20px;
+    flex-grow: 1;
+    background-color: $color3;
+    
+    span {
+      position: absolute;
+      bottom: -1.3em;
+      font: 0.7em $font-header;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+nav#step {
+  margin: 5px;
+  
+  li > a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: $color5;
+    color: $color1;
+    padding: 5px;
+  }
+
+  li {
+    display: inline-block;
+    color: $color5;
+    padding: 5px;
+    font-family: $font-header;
+  }
+
+  li > a:hover {color: $color4;}
+  #prev-step > a:before {content: '<';}
+  #next-step > a:before {content: '>';}
+}
+
+/* Header */
 header {
   background-color: $color1;
   padding: 10px;
@@ -166,5 +218,14 @@ header {
   a:before { content: '[ '; }
   a:after { content: ' ]'; }
   a:hover { color: $color3; }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font: 0.8em $font-header;
+  background-color: $color1;
+  padding: 20px;
+  color: $color0;
 }
 
